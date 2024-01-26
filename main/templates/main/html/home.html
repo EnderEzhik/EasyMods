@@ -12,10 +12,10 @@
         <img src="{% static 'main/other/logo.png' %}">
         <h2>Иди чурка своей дорогой</h2>
         <h3>Фильтры:</h3>
-        <form method="get">
+        <form method="post">
             {% csrf_token %}
             <label for="version-select">Версия:</label>
-            <select name="versions" id="version-select">
+            <select name="version" id="version-select">
                 {% for version in versions %}
                     <option value="{{ version }}">{{ version }}</option>
                 {% endfor %}

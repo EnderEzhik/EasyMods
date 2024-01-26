@@ -1,3 +1,7 @@
 from django.contrib import admin
+from .models import Mod, Category, Version
 
-# Register your models here.
+
+admin.site.register(Mod)
+admin.site.register(Category)
+admin.site.register(Version)

@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Main page</title>
+    <link rel="stylesheet" href="{% static 'main/css/home.css' %}">
+</head>
+<body>
+    <aside>
+        <button><a href="{% url 'addmod' %}">добавить мод</a></button>
+        <img src="{% static 'main/other/logo.png' %}">
+        <h2>Иди чурка своей дорогой</h2>
+        <h3>Фильтры:</h3>
+        <form method="get">
+            {% csrf_token %}
+            <label for="version-select">Версия:</label>
+            <select name="versions" id="version-select">
+                {% for version in versions %}
+                    <option value="{{ version }}">{{ version }}</option>
+                {% endfor %}
+            </select>
+            <ul>
+                {% for category in categories %}
+                    <li>
+                        <label for="{{ category }}"><input type="checkbox" name="{{ category }}" id="{{ category }}">{{ category }}</label>
+                    </li>
+                {% endfor %}
+            </ul>
+            <button type="submit">Применить</button>
+        </from>
+    </aside>
+    <main>
+        <ul>
+            {% for mod in mods %}
+                <li><a href="{{ mod.url }}">{{ mod.name }}</a></li>
+            {% endfor %}
+        </ul>
+    </main>
+</body>
+</html>

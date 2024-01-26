@@ -1,0 +1,33 @@
+body{
+    background-color: darkorchid;
+}
+
+button a{
+    font-size: 20px;
+    text-decoration: none;
+}
+
+p{
+    border: 5px solid rgb(24, 180, 91);
+}
+
+button{
+    margin-left: 45%;
+    margin-top: 2%;
+}
+
+form{
+    margin-left: 45%;
+    margin-top: 3%;
+}
+
+form button{
+    margin-top: 5%;
+    margin-left: 0%;
+}
+
+h1{
+    width: 10%;
+    border: 5px solid rgb(20, 220, 23);
+    word-wrap: break-word;
+}

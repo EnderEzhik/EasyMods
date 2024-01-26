@@ -1,0 +1,74 @@
+/* main */
+
+body{
+    background-color: rgb(79, 79, 79);
+}
+
+ul{
+    list-style: none;
+    padding-left: 0%;
+}
+
+/* main */
+
+/* aside */
+
+aside{
+    float: left;
+    background-color: rgb(28, 28, 28);
+    width: 10%;
+    padding: 1.5%;
+    height: 100vh;
+    /* border-right: 5px solid rgb(255, 60, 0); */
+}
+
+aside a{
+    color: rgb(124, 124, 124);
+    font-size: 20px;
+    text-decoration: none;
+    word-wrap: break-word;
+}
+
+aside img{
+    width: 100%;
+    float: left;
+}
+
+aside h2, aside h3{
+    color: rgb(124, 124, 124);
+    word-wrap: break-word;
+}
+
+aside form {
+    font-size: 20px;
+    color: rgb(204, 13, 13);
+}
+
+aside form button{
+    font-size: 20px;
+}
+
+form ul{
+    padding-left: 0%;
+    word-wrap: break-word;
+}
+
+form ul li label input{
+    list-style: none;
+    word-wrap: break-word;
+}
+
+/* aside */
+
+/* main */
+
+main{
+    margin-left: 13%;
+}
+
+main ul li a{
+    font-size: 20px;
+    color: rgb(217, 77, 34);
+}
+
+/* main */

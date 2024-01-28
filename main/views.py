@@ -18,16 +18,15 @@ def sort_versions(versions):
 
 def filter_mods(mods, version, selected_categories):
     temp_mods = []
-    for mod in mods:
-        if mod.version.version == version:
-            if len(selected_categories) > 0:
-                for mod in mods:
+    if len(selected_categories) > 0:
+        for mod in mods:
+            if mod.version.version == version:
                     mod_categories = [mod_category[1].name for mod_category in list(enumerate(mod.categories.all()))]
-                    print(mod_categories)
-                    print(selected_categories)
                     if all(map(lambda category: category in mod_categories, selected_categories)):
                         temp_mods.append(mod)
-            else:
+    else:
+        for mod in mods:
+            if mod.version.version == version:
                 temp_mods.append(mod)
     return temp_mods
 

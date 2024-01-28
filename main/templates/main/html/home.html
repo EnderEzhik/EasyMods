@@ -10,7 +10,6 @@
     <aside>
         <button><a href="{% url 'addmod' %}">добавить мод</a></button>
         <img src="{% static 'main/other/logo.png' %}">
-        <h2>Иди чурка своей дорогой</h2>
         <h3>Фильтры:</h3>
         <form method="post">
             {% csrf_token %}
@@ -32,9 +31,19 @@
     </aside>
     <main>
         <ul>
-            {% for mod in mods %}
-                <li><a href="{{ mod.url }}">{{ mod.name }}</a></li>
-            {% endfor %}
+        {% for mod in mods %}
+            <div class="mod-block">
+                <div class="mod-title">
+                    <a href="{{ mod.url }}">{{ mod.name }}</a>
+                </div>
+                <div class="mod-description">
+                    <p>
+                        Описание мода
+                    </p>
+                </div>
+                <hr>
+            </div>
+        {% endfor %}
         </ul>
     </main>
 </body>

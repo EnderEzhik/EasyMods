@@ -1,6 +1,5 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from .models import Mod, Category, Version
-from .forms import ModForm
 
 
 def sort_versions(versions):
@@ -42,21 +41,3 @@ def home(request):
     }
 
     return render(request, "main/html/home.html", data)
-
-def addmod(request):
-    error = ""
-    if request.method == "POST":
-        form = ModForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("home")
-        else:
-            error = "Не правильно"
-    form = ModForm()
-
-    data = {
-        "form": form,
-        "error": error
-    }
-    
-    return render(request, "main/html/addmod.html", data)

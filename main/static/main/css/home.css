@@ -19,7 +19,7 @@ aside{
     width: 10%;
     padding: 1.5%;
     height: 100vh;
-    /* border-right: 5px solid rgb(255, 60, 0); */
+    border: -5px solid rgb(255, 60, 0);
 }
 
 aside a{
@@ -34,9 +34,15 @@ aside img{
     float: left;
 }
 
-aside h2, aside h3{
+aside h2{
     color: rgb(124, 124, 124);
     word-wrap: break-word;
+}
+
+aside h3{
+    color: rgb(124, 124, 124);
+    word-wrap: break-word;
+    text-align: center;
 }
 
 aside form {

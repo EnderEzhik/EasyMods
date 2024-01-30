@@ -7,46 +7,7 @@
     <link rel="stylesheet" href="{% static 'main/css/home.css' %}">
 </head>
 <body>
-    <aside>
-        <img src="{% static 'main/other/logo.png' %}">
-        <h3>Фильтры:</h3>
-        <form id="mod-filter-form" method="post">
-            {% csrf_token %}
-            <label for="version-select">Версия:</label>
-            <select name="version" id="version-select">
-                {% for version in versions %}
-                    <option value="{{ version }}">{{ version }}</option>
-                {% endfor %}
-            </select>
-            <label for="categories">Категории:</label>
-            <select name="categories" id="categories" multiple>
-                {% for category in categories %}
-                    <option value="{{ category }}">{{ category }}</option>
-                {% endfor %}
-            </select>
-            <button type="submit">Применить</button>
-        </form>
-        
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                var form = document.getElementById('mod-filter-form');
-        
-                form.addEventListener('submit', function(event) {
-                    // event.preventDefault();
-                    var versionValue = form.querySelector('select[name="version"]').value;
-                    var categoriesValues = Array.from(form.querySelectorAll('select[name="categories"] option:checked')).map(option => option.value);
-        
-                    document.cookie = 'version=' + versionValue + '; path=/';
-                    document.cookie = 'categories=' + JSON.stringify(categoriesValues) + '; path=/';
-        
-                    // Здесь вы можете перенаправить пользователя на следующую страницу списка модов
-                    // window.location.href = '/mods/';
-                });
-            });
-        </script>
-        
-    </aside>
-    {% block modlist %}
+    {% block aside %}
     {% endblock %}
 </body>
 </html>

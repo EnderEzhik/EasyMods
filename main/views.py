@@ -22,17 +22,13 @@ def filter_mods(mods, selected_version, selected_categories):
     temp_mods = []
     if selected_categories != []:
         for mod in mods:
-            if mod.version.version == selected_version:
-                    mod_categories = [mod_category[1].name for mod_category in list(enumerate(mod.categories.all()))]
-                    if all(map(lambda category: category in mod_categories, selected_categories)):
-                        temp_mods.append(mod)
-            else:
+            if mod.version.version == selected_version or selected_version == "":
                 mod_categories = [mod_category[1].name for mod_category in list(enumerate(mod.categories.all()))]
                 if all(map(lambda category: category in mod_categories, selected_categories)):
-                        temp_mods.append(mod)
+                    temp_mods.append(mod)
     else:
         for mod in mods:
-            if mod.version.version == selected_version or selected_version == None:
+            if mod.version.version == selected_version or selected_version == "":
                 temp_mods.append(mod)
     return temp_mods
 
@@ -44,43 +40,47 @@ class ModListView(View):
     template_name = "main/html/modlist.html"
 
     def get(self, request, *args, **kwargs):
-        categories = Category.objects.all()
+        categories = [x.name for x in Category.objects.filter()]
         versions = sort_versions(Version.objects.all())
-        selected_version = request.COOKIES.get('version', '')
-        selected_categories = request.COOKIES.get('categories', '[]')
+
+        selected_version = request.COOKIES.get("version", "")
+        selected_categories = request.COOKIES.get("categories", "[]")
         selected_categories = json.loads(selected_categories)
-        # selected_version = request.GET.get("version")
-        # selected_categories = request.GET.getlist("categories")
-        cur_page = int(kwargs["pk"])
-        
+
         mods = filter_mods(Mod.objects.all(), selected_version, selected_categories)
+        
         paginator = Paginator(mods, 5)
+        cur_page = int(kwargs["pk"])
         mods_in_page = paginator.get_page(cur_page)
 
         return render(request, self.template_name, {
             "categories": categories,
             "versions": versions,
             "mods": mods_in_page,
-            "cur_page": cur_page
+            "cur_page": cur_page,
+            "selected_version": selected_version,
+            "selected_categories": selected_categories
         })
     
     def post(self, request, *args, **kwargs):
-        # Обработка POST-запроса
-        categories = Category.objects.all()
+        categories = [x.name for x in Category.objects.all()]
         versions = sort_versions(Version.objects.all())
-        selected_version = request.COOKIES.get('version', '')
-        selected_categories = request.COOKIES.get('categories', '[]')
+
+        selected_version = request.COOKIES.get("version", "")
+        selected_categories = request.COOKIES.get("categories", "[]")
         selected_categories = json.loads(selected_categories)
-        cur_page = 1  # При POST-запросе всегда перекидываем на первую страницу
 
         mods = filter_mods(Mod.objects.all(), selected_version, selected_categories)
-        paginator = Paginator(mods, 5)
-        mods_in_page = paginator.get_page(cur_page)
 
+        paginator = Paginator(mods, 5)
+        cur_page = 1  # При POST-запросе всегда перекидываем на первую страницу
+        mods_in_page = paginator.get_page(cur_page)
 
         return render(request, self.template_name, {
             "categories": categories,
             "versions": versions,
             "mods": mods_in_page,
-            "cur_page": cur_page
+            "cur_page": cur_page,
+            "selected_version": selected_version,
+            "selected_categories": selected_categories
         })

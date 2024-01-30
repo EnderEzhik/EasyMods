@@ -1,0 +1,63 @@
+{% extends 'main/html/home.html' %}
+{% load static %}
+
+{% block aside %}
+<aside>
+    <img src="{% static 'main/other/logo.png' %}">
+    <h3>Фильтры:</h3>
+    <form id="mod-filter-form" method="post">
+        {% csrf_token %}
+        <label for="version-select">Версия:</label>
+        <select name="version" id="version-select">
+            {% for version in versions %}
+            {% if version == selected_version %}
+            <option value="{{ version }}" selected>{{ version }}</option>
+            {% else %}
+            <option value="{{ version }}">{{ version }}</option>
+            {% endif %}
+            {% endfor %}
+        </select>
+        <label for="categories">Категории:</label>
+        <!-- <select name="categories" id="categories" multiple>
+            {% for category in categories %}
+            {% if category in selected_categories %}
+            <option value="{{ category }}" selected="selected">{{ category }}</option>
+            {% else %}
+            <option value="{{ category }}">{{ category }}</option>
+            {% endif %}
+            {% endfor %}
+        </select> -->
+        <ul>
+            {% for category in categories %}
+            {% if category in selected_categories %}
+            <li><input type="checkbox" name="categories" value="{{ category }}" checked>{{ category }}</li>
+            {% else %}
+            <li><input type="checkbox" value="{{ category }}">{{ category }}</li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+        <button type="submit">Применить</button>
+    </form>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        var form = document.getElementById('mod-filter-form');
+
+        form.addEventListener('submit', function(event) {
+            // event.preventDefault();
+            var versionValue = form.querySelector('select[name="version"]').value;
+            var checkboxValues = Array.from(form.querySelectorAll('input[type="checkbox"]:checked')).map(checkbox => checkbox.value);
+
+            document.cookie = 'version=' + versionValue + '; path=/';
+            document.cookie = 'categories=' + JSON.stringify(checkboxValues) + '; path=/';
+
+            // Здесь вы можете перенаправить пользователя на следующую страницу списка модов
+            // window.location.href = '/mods/';
+        });
+        });
+    </script>
+    
+</aside>
+{% block modlist %}
+{% endblock %}
+{% endblock %}

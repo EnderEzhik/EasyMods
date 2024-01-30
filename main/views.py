@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Mod, Category, Version
 from django.views import View
 from django.core.paginator import Paginator
+import json
 
 
 def sort_versions(versions):
@@ -45,8 +46,11 @@ class ModListView(View):
     def get(self, request, *args, **kwargs):
         categories = Category.objects.all()
         versions = sort_versions(Version.objects.all())
-        selected_version = request.GET.get("version")
-        selected_categories = request.GET.getlist("categories")
+        selected_version = request.COOKIES.get('version', '')
+        selected_categories = request.COOKIES.get('categories', '[]')
+        selected_categories = json.loads(selected_categories)
+        # selected_version = request.GET.get("version")
+        # selected_categories = request.GET.getlist("categories")
         cur_page = int(kwargs["pk"])
         
         mods = filter_mods(Mod.objects.all(), selected_version, selected_categories)
@@ -62,16 +66,17 @@ class ModListView(View):
     
     def post(self, request, *args, **kwargs):
         # Обработка POST-запроса
-        selected_version = request.POST.get("version")
-        selected_categories = request.POST.getlist("categories")
+        categories = Category.objects.all()
+        versions = sort_versions(Version.objects.all())
+        selected_version = request.COOKIES.get('version', '')
+        selected_categories = request.COOKIES.get('categories', '[]')
+        selected_categories = json.loads(selected_categories)
         cur_page = 1  # При POST-запросе всегда перекидываем на первую страницу
-        
+
         mods = filter_mods(Mod.objects.all(), selected_version, selected_categories)
         paginator = Paginator(mods, 5)
         mods_in_page = paginator.get_page(cur_page)
 
-        categories = Category.objects.all()
-        versions = sort_versions(Version.objects.all())
 
         return render(request, self.template_name, {
             "categories": categories,

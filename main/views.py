@@ -1,5 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Mod, Category, Version
+from django.views import View
+from django.core.paginator import Paginator
 
 
 def sort_versions(versions):
@@ -15,29 +17,65 @@ def sort_versions(versions):
                     sorted_versions[j], sorted_versions[j + 1] = sorted_versions[j + 1], sorted_versions[j]
     return sorted_versions
 
-def filter_mods(mods, version, selected_categories):
+def filter_mods(mods, selected_version, selected_categories):
     temp_mods = []
-    if len(selected_categories) > 0:
+    if selected_categories != []:
         for mod in mods:
-            if mod.version.version == version:
+            if mod.version.version == selected_version:
                     mod_categories = [mod_category[1].name for mod_category in list(enumerate(mod.categories.all()))]
                     if all(map(lambda category: category in mod_categories, selected_categories)):
                         temp_mods.append(mod)
+            else:
+                mod_categories = [mod_category[1].name for mod_category in list(enumerate(mod.categories.all()))]
+                if all(map(lambda category: category in mod_categories, selected_categories)):
+                        temp_mods.append(mod)
     else:
         for mod in mods:
-            if mod.version.version == version:
+            if mod.version.version == selected_version or selected_version == None:
                 temp_mods.append(mod)
     return temp_mods
 
-def home(request):
-    mods = Mod.objects.all()
-    if request.method == "POST":
-        mods = filter_mods(mods, request.POST["version"], [selected_category[1] for selected_category in list(enumerate(request.POST))[2:]])
+def redirect_to_page(request):
+    return redirect("/page/1")
 
-    data = {
-        "categories": Category.objects.all(),
-        "versions": sort_versions(Version.objects.all()),
-        "mods": mods
-    }
 
-    return render(request, "main/html/home.html", data)
+class ModListView(View):
+    template_name = "main/html/modlist.html"
+
+    def get(self, request, *args, **kwargs):
+        categories = Category.objects.all()
+        versions = sort_versions(Version.objects.all())
+        selected_version = request.GET.get("version")
+        selected_categories = request.GET.getlist("categories")
+        cur_page = int(kwargs["pk"])
+        
+        mods = filter_mods(Mod.objects.all(), selected_version, selected_categories)
+        paginator = Paginator(mods, 5)
+        mods_in_page = paginator.get_page(cur_page)
+
+        return render(request, self.template_name, {
+            "categories": categories,
+            "versions": versions,
+            "mods": mods_in_page,
+            "cur_page": cur_page
+        })
+    
+    def post(self, request, *args, **kwargs):
+        # Обработка POST-запроса
+        selected_version = request.POST.get("version")
+        selected_categories = request.POST.getlist("categories")
+        cur_page = 1  # При POST-запросе всегда перекидываем на первую страницу
+        
+        mods = filter_mods(Mod.objects.all(), selected_version, selected_categories)
+        paginator = Paginator(mods, 5)
+        mods_in_page = paginator.get_page(cur_page)
+
+        categories = Category.objects.all()
+        versions = sort_versions(Version.objects.all())
+
+        return render(request, self.template_name, {
+            "categories": categories,
+            "versions": versions,
+            "mods": mods_in_page,
+            "cur_page": cur_page
+        })

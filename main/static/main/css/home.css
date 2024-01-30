@@ -48,12 +48,12 @@ aside form button{
     font-size: 20px;
 }
 
-form ul{
+form select{
     padding-left: 0%;
     word-wrap: break-word;
 }
 
-form ul li label input{
+form select option{
     list-style: none;
     word-wrap: break-word;
 }
@@ -83,6 +83,25 @@ main{
 
 .mod-description p{
     font-size: 20px;
+}
+
+.pages{
+    text-align: center;
+}
+
+.pages li{
+    display: inline;
+}
+
+#cur_page{
+    border: 2px solid rgb(217, 34, 65);
+}
+
+.pages li a, .pages li{
+    font-size: 20px;
+    font-weight: bold;
+    color: rgb(217, 34, 65);
+    text-decoration: none;
 }
 
 /* main */

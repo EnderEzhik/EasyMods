@@ -1,0 +1,29 @@
+{% extends 'main/html/home.html' %}
+
+{% block modlist %}
+<main>
+    <ul>
+    {% for mod in mods %}
+        <div class="mod-block">
+            <div class="mod-title">
+                <a href="{{ mod.url }}">{{ mod.name }}</a>
+            </div>
+            <div class="mod_version">
+                <p>{{ mod.version.version}}</p>
+            </div>
+            <div class="mod-description">
+                <p>
+                    {{ mod.description }}
+                </p>
+            </div>
+            <hr>
+        </div>
+    {% endfor %}
+    </ul>
+    <ul class="pages">
+        {% if cur_page > 1 %}<li><a href="/page/{{ cur_page|add:-1 }}">prev page</a></li>{% endif %}
+        <li id="cur_page">{{ cur_page }}</li>
+        <li><a href="/page/{{ cur_page|add:1 }}">next page</a></li>
+    </ul>
+</main>
+{% endblock %}

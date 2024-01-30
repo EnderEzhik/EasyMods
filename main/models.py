@@ -28,6 +28,7 @@ class Mod(models.Model):
     url = models.CharField("Ссылка", max_length=250)
     version = models.ForeignKey(Version, on_delete=models.PROTECT)
     categories = models.ManyToManyField(Category)
+    description = models.TextField("Описание")
 
     def __str__(self):
         return self.name

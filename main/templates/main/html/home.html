@@ -18,32 +18,16 @@
                     <option value="{{ version }}">{{ version }}</option>
                 {% endfor %}
             </select>
-            <ul>
+            <label for="categories">Категории:</label>
+            <select name="categories" id="categories" multiple>
                 {% for category in categories %}
-                    <li>
-                        <label for="{{ category }}"><input type="checkbox" name="{{ category }}" id="{{ category }}">{{ category }}</label>
-                    </li>
+                <option value="{{ category }}">{{ category }}</option>
                 {% endfor %}
-            </ul>
+            </select>
             <button type="submit">Применить</button>
         </from>
     </aside>
-    <main>
-        <ul>
-        {% for mod in mods %}
-            <div class="mod-block">
-                <div class="mod-title">
-                    <a href="{{ mod.url }}">{{ mod.name }}</a>
-                </div>
-                <div class="mod-description">
-                    <p>
-                        Описание мода
-                    </p>
-                </div>
-                <hr>
-            </div>
-        {% endfor %}
-        </ul>
-    </main>
+    {% block modlist %}
+    {% endblock %}
 </body>
 </html>

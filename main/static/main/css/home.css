@@ -87,6 +87,10 @@ main{
     color: aliceblue;
 }
 
+.mod-version{
+    color: rgb(255, 115, 72);
+}
+
 .mod-description p{
     font-size: 20px;
     color: rgb(130, 215, 255);

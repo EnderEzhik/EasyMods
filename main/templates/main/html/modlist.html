@@ -2,8 +2,9 @@
 
 {% block modlist %}
 <main>
-    <ul>
-    {% for mod in mods %}
+    <div class="mods">
+    <div class="list-mods">
+        {% for mod in mods%}
         <div class="mod-block">
             <div class="mod-title">
                 <a href="{{ mod.url }}">{{ mod.name }}</a>
@@ -16,14 +17,16 @@
                     {{ mod.description }}
                 </p>
             </div>
-            <hr>
         </div>
-    {% endfor %}
-    </ul>
-    <ul class="pages">
-        {% if cur_page > 1 %}<li><a href="/page/{{ cur_page|add:-1 }}">prev page</a></li>{% endif %}
-        <li id="cur_page">{{ cur_page }}</li>
-        <li><a href="/page/{{ cur_page|add:1 }}">next page</a></li>
-    </ul>
+        {% endfor %}
+    </div>
+    </div>
+    <div class="pages">
+        {% if cur_page > 1 %}
+        <div><a href="/page/{{ cur_page|add:-1 }}">prev page</a></div>
+        {% endif %}
+        <div >{{ cur_page }}</div>
+        <div><a href="/page/{{ cur_page|add:1 }}">next page</a></div>
+    </div>
 </main>
 {% endblock %}

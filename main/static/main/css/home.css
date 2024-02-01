@@ -2,11 +2,12 @@
 
 body{
     background-color: rgb(79, 79, 79);
+    margin: 0;
 }
 
 ul{
     list-style: none;
-    padding-left: 0%;
+    padding-left: 0;
 }
 
 /* general */
@@ -17,26 +18,16 @@ aside{
     float: left;
     background-color: rgb(28, 28, 28);
     width: 10%;
-    padding: 1.5%;
     height: 100vh;
+    padding: 1.5%;
+    padding-bottom: 0;
+    padding-top: 0;
     border: -5px solid rgb(255, 60, 0);
-}
-
-aside a{
-    color: rgb(124, 124, 124);
-    font-size: 20px;
-    text-decoration: none;
-    word-wrap: break-word;
 }
 
 aside img{
     width: 100%;
     float: left;
-}
-
-aside h2{
-    color: rgb(124, 124, 124);
-    word-wrap: break-word;
 }
 
 aside h3{
@@ -50,13 +41,16 @@ aside form {
     color: rgb(217, 34, 65);
 }
 
-aside form button{
-    font-size: 20px;
+aside form ul{
+    margin: 0;
+}
+
+form label{
+    word-wrap: break-word;
 }
 
 form select{
     padding-left: 0%;
-    word-wrap: break-word;
 }
 
 form select option{
@@ -64,20 +58,25 @@ form select option{
     word-wrap: break-word;
 }
 
+aside form button{
+    font-size: 20px;
+}
+
+ul li{
+    word-wrap: break-word;
+}
+
 /* aside */
 
 /* main */
 
-main{
-    float: right;
-    width: 87%;
-}
+/*
 
 .mod-block{
     padding: 1%;
     background-color: rgb(15, 70, 15);
     text-align: center;
-    /* color: rgb(217, 34, 65); */
+    //color: rgb(217, 34, 65);
 }
 
 .mod-title a{
@@ -110,6 +109,73 @@ main{
 
 .pages li a, .pages li{
     font-size: 20px;
+    font-weight: bold;
+    color: rgb(217, 34, 65);
+    text-decoration: none;
+}
+*/
+
+main{
+    float: right;
+    width: 87%;
+    height: 100vh;
+}
+
+.mods{
+    height: calc(100vh - 26px)
+}
+
+.list-mods{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    height: 100%;
+}
+
+.mod-block{
+    background-color: rgb(15, 70, 15)   ;
+    outline: 2px dashed rgb(124, 124, 124);
+    outline-offset:-2px;
+    width: 25%;
+    height: 25%;
+}
+
+.mod-title{
+    text-align: center;
+    margin-top: 1%;
+}
+
+.mod-title a{
+    font-size: 25px;
+    text-decoration: none;
+    color: aliceblue;
+}
+
+.mod-version{
+    color: rgb(255, 115, 72);
+    text-align: center;
+}
+
+.mod-description{
+    text-align: center;
+}
+
+.mod-description p{
+    font-size: 20px;
+    color: rgb(130, 215, 255);
+}
+
+.pages{
+    text-align: center;
+    margin: 0;
+}
+
+.pages div{
+    display: inline;
+}
+
+.pages div a, .pages div{
+    font-size: 23px;
     font-weight: bold;
     color: rgb(217, 34, 65);
     text-decoration: none;

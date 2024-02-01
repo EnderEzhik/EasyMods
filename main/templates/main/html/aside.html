@@ -17,22 +17,14 @@
             {% endif %}
             {% endfor %}
         </select>
+
         <label for="categories">Категории:</label>
-        <!-- <select name="categories" id="categories" multiple>
-            {% for category in categories %}
-            {% if category in selected_categories %}
-            <option value="{{ category }}" selected="selected">{{ category }}</option>
-            {% else %}
-            <option value="{{ category }}">{{ category }}</option>
-            {% endif %}
-            {% endfor %}
-        </select> -->
         <ul>
             {% for category in categories %}
             {% if category in selected_categories %}
-            <li><input type="checkbox" name="categories" value="{{ category }}" checked>{{ category }}</li>
+            <li name="categories-{{ category }}"><input type="checkbox" value="{{ category }}" checked>{{ category }}</li>
             {% else %}
-            <li><input type="checkbox" value="{{ category }}">{{ category }}</li>
+            <li name="categories-{{ category }}"><input type="checkbox" value="{{ category }}">{{ category }}</li>
             {% endif %}
             {% endfor %}
         </ul>

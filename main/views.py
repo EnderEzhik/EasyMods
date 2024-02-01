@@ -49,7 +49,7 @@ class ModListView(View):
 
         mods = filter_mods(Mod.objects.all(), selected_version, selected_categories)
         
-        paginator = Paginator(mods, 5)
+        paginator = Paginator(mods, 16)
         cur_page = int(kwargs["pk"])
         mods_in_page = paginator.get_page(cur_page)
 
@@ -72,7 +72,7 @@ class ModListView(View):
 
         mods = filter_mods(Mod.objects.all(), selected_version, selected_categories)
 
-        paginator = Paginator(mods, 5)
+        paginator = Paginator(mods, 16)
         cur_page = 1  # При POST-запросе всегда перекидываем на первую страницу
         mods_in_page = paginator.get_page(cur_page)
 

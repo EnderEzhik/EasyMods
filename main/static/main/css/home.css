@@ -83,7 +83,7 @@ main{
 .list-mods{
     display: flex;
     flex-wrap: wrap;
-    align-items: flex-start;
+    align-content: flex-start;
     height: 100%;
 }
 
@@ -116,7 +116,7 @@ main{
 }
 
 .mod-description p{
-    font-size: 20px;
+    font-size: 100%;
     color: rgb(130, 215, 255);
 }
 
